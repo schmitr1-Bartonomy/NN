@@ -1,0 +1,16 @@
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.exe
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.deps.json
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.runtimeconfig.json
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.runtimeconfig.dev.json
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.dll
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\TestBed.pdb
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\NeuralNetwork.dll
+C:\Dev\NN\NeuralNetwork\TestBed\bin\Debug\netcoreapp3.1\NeuralNetwork.pdb
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.csprojAssemblyReference.cache
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.csproj.CoreCompileInputs.cache
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.AssemblyInfoInputs.cache
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.AssemblyInfo.cs
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.csproj.CopyComplete
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.dll
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.pdb
+C:\Dev\NN\NeuralNetwork\TestBed\obj\Debug\netcoreapp3.1\TestBed.genruntimeconfig.cache

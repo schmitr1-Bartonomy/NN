@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "lTk5QTrJo+q0YlRpkexnzX4wEUw3sbympZE8REh9nJ28i0fSNk6B99JlklMiT08BO4OmxH4AFRofM8PYjAjOxA==",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\NN\\Neural Network\\DerivativeLib\\DerivativeLib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robbe\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\robbe\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

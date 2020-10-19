@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "PIkJHVw9Y5/dUDKIMtH3gY8RyX9kfHOsvPtr/RPxn4SLrMlh4ZwUnOCJujLU/AyXbulLM/lYL53uym7F3ZlBDA==",
+  "success": true,
+  "projectFilePath": "C:\\Dev\\NN\\Neural Network\\Matrix\\MatrixLib.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\robbe\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\robbe\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

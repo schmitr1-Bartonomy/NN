@@ -27,6 +27,29 @@ namespace NeuralNetwork
                 inputs = layer.FeedForward(inputs);
             return inputs;
         }
+        public Info FeedForwardInfo(double[] inputs)
+        {
+            Info info = new Info(topology);
+            info.activations[0] = inputs;
+            for (int i = 0; i < layers.Length; i++)
+                info = layers[i].FeedForward(info, i);
+            return new Info();
+        }
+        public struct Info
+        {
+            public double[][] thresholds;
+            public double[][] activations;
+            public Info(ushort[] topology)
+            {
+                thresholds = new double[topology.Length][];
+                activations = new double[topology.Length][];
+                for (int i = 0; i < topology.Length; i++)
+                {
+                    thresholds[i] = new double[topology[i]];
+                    activations[i] = new double[topology[i]];
+                }
+            }
+        }
 
         public override string ToString()
         {

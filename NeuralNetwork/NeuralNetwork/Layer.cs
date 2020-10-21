@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static NeuralNetwork.NeuralNetwork;
 
 namespace NeuralNetwork
 {
@@ -38,6 +39,13 @@ namespace NeuralNetwork
         internal double[] FeedForward(double[] inputs)
         {
             return Plus(Multiply(weights, inputs), bias);
+        }
+
+        internal Info FeedForward(Info info, int depth)
+        {
+            info.thresholds[depth + 1] = Plus(Multiply(weights, info.activations[depth]), bias);
+            info.activations[depth+1] = activationFunction.
+            return Plus(Multiply(weights, inputs[info[), bias);
         }
 
         internal double[] Multiply(double[,] x, double[] y)

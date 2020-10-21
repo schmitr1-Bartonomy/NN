@@ -23,13 +23,14 @@ namespace NeuralNetwork.Activation
         {
             {Type.BinaryStep, new BinaryStep() },
             {Type.Linear, new Linear() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
-            {Type.BinaryStep, new BinaryStep() },
+            {Type.Sigmoid, new Sigmoid() },
+            {Type.TanH, new TanH() },
+            {Type.ReLU, new ReLU() },
+            {Type.LeakyReLU, new LeakyReLU() },
+            {Type.ParameterisedReLU, new ParameterisedReLU() },
+            {Type.ExponentialLinearUnit, new ExponentialLinearUnit() },
+            {Type.Swish, new Swish() },
+            {Type.Softmax, new Softmax() }
         };
         Type type;
         IActivation function;
@@ -41,10 +42,12 @@ namespace NeuralNetwork.Activation
         {
             double[] activation = new double[threshold.Length];
             for (int i = 0; i < activation.Length; i++)
-            {
                 activation[i] = function.Activate(threshold[i]);
-            }
             return activation;
+        }
+        public double[] Gradient(double[] d)
+        {
+            return d;
         }
 
         public override string ToString()

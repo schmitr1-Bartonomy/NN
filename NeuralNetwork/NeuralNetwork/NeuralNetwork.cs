@@ -1,4 +1,5 @@
 ﻿using NeuralNetwork.Activation;
+using NeuralNetwork.Train.Cost;
 using System;
 using System.Collections.Generic;
 
@@ -21,6 +22,15 @@ namespace NeuralNetwork
             for (int i = 0; i < topology.Length-1; i++)
                 layers[i] = new Layer(topology[i], topology[i+1], activations[i+1]);
         }
+
+        internal Info BackPropgate(Info info, CostFunction costFunction, double[] target)
+        {
+            for (int i = topology.Length-1; i < 0; i--)
+                info.errors[i] = i == topology.Length - 1 ?
+                    layers[i - 1].BackPropogate(costFunction.Gradient(info.activations[i],target), info.thresholds[i]) :
+                    layers[i - 1].BackPropogate(layers[i].weights, info.errors[i + 1], info.thresholds[i]);
+            return info;
+        }
         public double[] FeedForward(double[] inputs)
         {
             foreach (Layer layer in layers)
@@ -39,14 +49,17 @@ namespace NeuralNetwork
         {
             public double[][] thresholds;
             public double[][] activations;
+            public double[][] errors;
             public Info(ushort[] topology)
             {
                 thresholds = new double[topology.Length][];
                 activations = new double[topology.Length][];
+                errors = new double[topology.Length][];
                 for (int i = 0; i < topology.Length; i++)
                 {
                     thresholds[i] = new double[topology[i]];
                     activations[i] = new double[topology[i]];
+                    errors[i] = new double[topology[i]];
                 }
             }
         }

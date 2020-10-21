@@ -1,14 +1,13 @@
 ﻿using NeuralNetwork.Activation;
+using NeuralNetwork.Train.Cost;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static NeuralNetwork.NeuralNetwork;
 
 namespace NeuralNetwork
 {
     class Layer
     {
-        double[,] weights;
+        internal double[,] weights;
         double[] bias;
         ActivationFunction activationFunction;
         public Layer(ushort numInputs, ushort numNeurons, Activation.Type activationType)
@@ -38,14 +37,22 @@ namespace NeuralNetwork
 
         internal double[] FeedForward(double[] inputs)
         {
-            return Plus(Multiply(weights, inputs), bias);
+            return activationFunction.Activate(Plus(Multiply(weights, inputs), bias));
         }
 
         internal Info FeedForward(Info info, int depth)
         {
             info.thresholds[depth + 1] = Plus(Multiply(weights, info.activations[depth]), bias);
-            info.activations[depth+1] = activationFunction.
-            return Plus(Multiply(weights, inputs[info[), bias);
+            info.activations[depth + 1] = activationFunction.Activate(info.thresholds[depth + 1]);
+            return info;
+        }
+        internal double[] BackPropogate(double[] costGradient, double[] thresholds)
+        {
+            return Hadamard(costGradient, activationFunction.Gradient(thresholds));
+        }
+        internal double[] BackPropogate(double[,] weights_l, double[] errors_l, double[] thresholds)
+        {
+            return Hadamard(Multiply(Transpose(weights_l),errors_l), activationFunction.Gradient(thresholds));
         }
 
         internal double[] Multiply(double[,] x, double[] y)
@@ -62,6 +69,23 @@ namespace NeuralNetwork
             double[] ret = new double[x.Length];
             for (int i = 0; i < ret.Length; i++)
                 ret[i] = x[i] + y[i];
+            return ret;
+        }
+
+        internal double[] Hadamard(double[] x, double[] y)
+        {
+            double[] ret = new double[x.Length];
+            for (int i = 0; i < ret.Length; i++)
+                ret[i] = x[i] * y[i];
+            return ret;
+        }
+        
+        internal double[,] Transpose(double[,] x)
+        {
+            double[,] ret = new double[x.GetLength(1), x.GetLength(0)];
+            for (int i = 0; i < ret.GetLength(0); i++)
+                for (int j = 0; j < ret.GetLength(1); j++)
+                    ret[i, j] = x[j, i];
             return ret;
         }
 

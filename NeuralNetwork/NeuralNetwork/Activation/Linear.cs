@@ -6,14 +6,15 @@ namespace NeuralNetwork.Activation
 {
     class Linear : IActivation
     {
+        double a = 1.5;
         public double Activate(double x)
         {
-            throw new NotImplementedException();
+            return a * x;
         }
 
         public double Gradient(double x)
         {
-            throw new NotImplementedException();
+            return a;
         }
     }
 }

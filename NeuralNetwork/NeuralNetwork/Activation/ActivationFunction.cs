@@ -37,6 +37,7 @@ namespace NeuralNetwork.Activation
         public ActivationFunction(Type type)
         {
             this.type = type;
+            function = typeDict[type];
         }
         public double[] Activate(double[] threshold)
         {

@@ -8,12 +8,12 @@ namespace NeuralNetwork.Activation
     {
         public double Activate(double x)
         {
-            throw new NotImplementedException();
+            return Math.Tanh(x);
         }
 
         public double Gradient(double x)
         {
-            throw new NotImplementedException();
+            return 1 - Math.Pow(Math.Tan(x), 2);
         }
     }
 }

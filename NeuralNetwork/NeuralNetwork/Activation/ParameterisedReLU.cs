@@ -6,14 +6,15 @@ namespace NeuralNetwork.Activation
 {
     class ParameterisedReLU : IActivation
     {
+        double a = .5;
         public double Activate(double x)
         {
-            throw new NotImplementedException();
+            return x < 0 ? a * x : x; 
         }
 
         public double Gradient(double x)
         {
-            throw new NotImplementedException();
+            return x < 0 ? a : 1;
         }
     }
 }

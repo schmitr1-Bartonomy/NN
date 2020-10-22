@@ -42,13 +42,29 @@ namespace NeuralNetwork.Activation
         public double[] Activate(double[] threshold)
         {
             double[] activation = new double[threshold.Length];
-            for (int i = 0; i < activation.Length; i++)
-                activation[i] = function.Activate(threshold[i]);
+            switch (type)
+            {
+                case Type.Softmax:
+                    double[] _ = new double[activation.Length];
+                    double sum = 0;
+                    for (int i = 0; i < activation.Length; i++)
+                        sum += _[i] = Math.Exp(threshold[i]);
+                    for (int i = 0; i < activation.Length; i++)
+                        activation[i] = _[i] / sum;
+                    break;
+                default:
+                    for (int i = 0; i < activation.Length; i++)
+                        activation[i] = function.Activate(threshold[i]);
+                    break;
+            }
             return activation;
         }
-        public double[] Gradient(double[] d)
+        public double[] Gradient(double[] threshold)
         {
-            return d;
+            double[] gradient = new double[threshold.Length];
+            for (int i = 0; i < gradient.Length; i++)
+                gradient[i] = function.Gradient(threshold[i]);
+            return gradient;
         }
 
         public override string ToString()

@@ -2,6 +2,7 @@
 using NeuralNetwork.Train.Cost;
 using System;
 using System.Collections.Generic;
+using static NeuralNetwork.Train.Train;
 
 namespace NeuralNetwork
 {
@@ -10,10 +11,39 @@ namespace NeuralNetwork
         ushort[] topology;
         Layer[] layers;
         ActivationFunction inputActivation;
+        Train.Train train = new Train.Train();
         public NeuralNetwork()
         {
-            Build(new ushort[] { 2, 4, 5, 1 }, new List<Activation.Type>() { Activation.Type.Linear, Activation.Type.ReLU, Activation.Type.ReLU, Activation.Type.Sigmoid });
+            Build(new ushort[] { 2,2, 1 }, new List<Activation.Type>() {Activation.Type.Linear,Activation.Type.ReLU, Activation.Type.Sigmoid });
         }
+        public double Train(List<double[]> input, List<double[]> output)
+        {
+            List<Info> infos = new List<Info>();
+            double cost = 0;
+            for (int i = 0; i < input.Count; i++)
+            {
+                Data data = new Data()
+                {
+                    input = input[i],
+                    output = output[i]
+                };
+                infos.Add(train.Training(this, data));
+            }
+            GradientDescent(infos);
+            foreach (Info info in infos)
+                cost += info.cost;
+            return cost;
+        }
+
+        private void GradientDescent(List<Info> infos)
+        {
+            for (int i = layers.Length-1; i >= 0; i--)
+            {
+                layers[i].AdjustWeights(infos,i);
+                layers[i].AdjustBiases(infos,i);
+            }
+        }
+
         private void Build(ushort[] topology, List<Activation.Type> activations)
         {
             this.topology = topology;
@@ -25,42 +55,44 @@ namespace NeuralNetwork
 
         internal Info BackPropgate(Info info, CostFunction costFunction, double[] target)
         {
-            for (int i = topology.Length-1; i < 0; i--)
-                info.errors[i] = i == topology.Length - 1 ?
-                    layers[i - 1].BackPropogate(costFunction.Gradient(info.activations[i],target), info.thresholds[i]) :
+            for (int i = info.errors.Length - 1; i > 0; i--)
+            {
+                info.errors[i] = i == info.errors.Length - 1 ?
+                    layers[i - 1].BackPropogate(costFunction.Gradient(info.activations[i], target), info.thresholds[i]) :
                     layers[i - 1].BackPropogate(layers[i].weights, info.errors[i + 1], info.thresholds[i]);
-            return info;
+            }
+            foreach (double cost in costFunction.Cost(info.activations[info.activations.Length - 1], target))
+                info.cost += cost;
+            return info; 
         }
         public double[] FeedForward(double[] inputs)
         {
+            inputs = inputActivation.Activate(inputs);
             foreach (Layer layer in layers)
                 inputs = layer.FeedForward(inputs);
             return inputs;
         }
-        public Info FeedForwardInfo(double[] inputs)
+        internal Info FeedForwardInfo(double[] inputs)
         {
             Info info = new Info(topology);
-            info.activations[0] = inputs;
+            info.thresholds[0] = inputs;
+            info.activations[0] = inputActivation.Activate(inputs);
             for (int i = 0; i < layers.Length; i++)
                 info = layers[i].FeedForward(info, i);
-            return new Info();
+            return info;
         }
-        public struct Info
+        internal struct Info
         {
-            public double[][] thresholds;
-            public double[][] activations;
-            public double[][] errors;
-            public Info(ushort[] topology)
+            internal double[][] thresholds;
+            internal double[][] activations;
+            internal double[][] errors;
+            internal double cost;
+            internal Info(ushort[] topology)
             {
                 thresholds = new double[topology.Length][];
                 activations = new double[topology.Length][];
                 errors = new double[topology.Length][];
-                for (int i = 0; i < topology.Length; i++)
-                {
-                    thresholds[i] = new double[topology[i]];
-                    activations[i] = new double[topology[i]];
-                    errors[i] = new double[topology[i]];
-                }
+                cost = 0;
             }
         }
 

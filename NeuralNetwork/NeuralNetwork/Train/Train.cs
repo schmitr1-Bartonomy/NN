@@ -6,19 +6,23 @@ using static NeuralNetwork.NeuralNetwork;
 
 namespace NeuralNetwork.Train
 {
-    class Train
+    internal class Train
     {
-        CostFunction costFunction;
-        struct Data
+        internal Train()
+        {
+
+        }
+        internal struct Data
         {
             public double[] input;
             public double[] output;
         }
-        void Training(NeuralNetwork nn, Data data)
+        internal Info Training(NeuralNetwork nn, Data data, CostFunction costFunction = null)
         {
+            if (costFunction == null)
+                costFunction = new CostFunction();
             Info info = nn.FeedForwardInfo(data.input);
-            //costFunction.Cost(info.activations[info.activations.Length - 1], data.output);
-            nn.BackPropgate(info, costFunction, data.output);
+            return nn.BackPropgate(info, costFunction, data.output);
         }
     }
 }

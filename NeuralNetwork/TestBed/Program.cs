@@ -16,26 +16,14 @@ namespace TestBed
             };
             List<double[]> output = new List<double[]>() {
                 new double[] { 0 },
-                new double[] { 0 },
+                new double[] { 1 },
                 new double[] { 0 },
                 new double[] { 1 }
             };
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 100000; i++)
             {
-                input.AddRange(input);
-                output.AddRange(output);
+                nn.Train(input, output);
             }
-            for (int i = 0; i < 10000; i++)
-            {
-                double _ = nn.Train(input, output);
-                if (!double.IsNaN(_))
-                    Console.WriteLine("Cost:"+_);
-            }
-            Console.WriteLine(string.Join(" ,",nn.FeedForward(input[0])));
-            Console.WriteLine(string.Join(" ,",nn.FeedForward(input[1])));
-            Console.WriteLine(string.Join(" ,",nn.FeedForward(input[2])));
-            Console.WriteLine(string.Join(" ,",nn.FeedForward(input[3])));
-
         }
     }
 }
